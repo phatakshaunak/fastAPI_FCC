@@ -13,7 +13,7 @@ class Post(BaseModel):
     published: bool = True
     rating: Optional[int] = None
 
-# Save posts
+# Save posts (ultimately connect to a database, using a list for demonstation for now)
 my_posts = [{"title": "title of post 1", "content": "content of post 1", "id": 1},
             {"title": "some random title", "content": "post 2's content", "id": 2} 
            ]
