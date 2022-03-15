@@ -1,28 +1,13 @@
 from re import I
 from typing import Optional
-from fastapi import Body, FastAPI, Response, status, HTTPException, Depends
+from fastapi import Body, FastAPI, Response, status, HTTPException
 from pydantic import BaseModel
 from random import randrange
 import psycopg2, os
 from psycopg2.extras import RealDictCursor
 import time
-from . import models
-from .database import engine, Base, SessionLocal
-from sqlalchemy.orm import Session
 
 app = FastAPI()
-
-models.Base.metadata.create_all(bind = engine)
-
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-# models.Base.metadata.create_all(bind = engine)
 
 # Schema validation using Pydantic for data received from client
 class Post(BaseModel):
@@ -46,24 +31,22 @@ while True:
         print("Connecting to database failed with the message \n", error)
         time.sleep(2)
 
+# Save posts (ultimately connect to a database, using a list for demonstation for now)
+my_posts = [{"title": "title of post 1", "content": "content of post 1", "id": 1},
+            {"title": "some random title", "content": "post 2's content", "id": 2} 
+           ]
+
 @app.get("/")
 def root():
     return {"message": "Landing page of your dummy social media app"}
 
-@app.get('/sqlalchemy')
-def test_posts(db: Session = Depends(get_db)):
-
-    posts = db.query(models.Posts).all()
-    return {"data": posts}
-
 
 # Get all posts
 @app.get("/posts")
-def get_posts(db: Session = Depends(get_db)):
-    # cursor.execute('''select * from public.posts''')
-    # posts = cursor.fetchall()
-    # print(posts)
-    posts = db.query(models.Posts).all()
+def get_posts():
+    cursor.execute('''select * from public.posts''')
+    posts = cursor.fetchall()
+    print(posts)
     return {'data': posts}
 
 
@@ -91,7 +74,15 @@ def get_post(id: int):
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail = f"Post with id: {id} was not found")
     
     return {"post_detail": post}
+
+def find_postIndex(idx):
+
+    for i,d in enumerate(my_posts):
+
+        if d["id"] == idx:
+            return i
     
+    return None
 
 # Delete posts
 @app.delete("/posts/{id}", status_code = status.HTTP_204_NO_CONTENT)
