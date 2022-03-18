@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 import os
-from .variables import settings
 from . import models
 from .database import engine
 from .routers import posts, users, auth
@@ -12,7 +11,6 @@ app.include_router(users.router)
 app.include_router(auth.router)
 
 models.Base.metadata.create_all(bind = engine)
-
 
 
 @app.get("/")

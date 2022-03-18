@@ -4,8 +4,7 @@ from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, status, HTTPException
 from sqlalchemy.orm import Session
-import os
-from .variables import settings
+from .config import settings
 
 # SECRET_KEY
 # Algorithm HS256
