@@ -9,25 +9,6 @@ from datetime import datetime
 #     # optional as default value is set
 #     published: bool = True
 
-class PostBase(BaseModel):
-    title: str
-    content: str
-    # optional as default value is set
-    published: bool = True
-    
-
-class PostCreate(PostBase):
-    pass
-
-class PostResponse(PostBase):
-    id: int
-    created_at: datetime
-
-    # Add this class for Pydantic to read despite the response not being a python dictionary
-    # The response in this case that is to be validated is a SQLAlchemy based class
-    class Config:
-        orm_mode = True
-
 class CreateUser(BaseModel):
     email: EmailStr
     password: str
@@ -50,3 +31,23 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[str]
+
+class PostBase(BaseModel):
+    title: str
+    content: str
+    # optional as default value is set
+    published: bool = True
+    
+class PostCreate(PostBase):
+    pass
+
+class PostResponse(PostBase):
+    id: int
+    created_at: datetime
+    user_id: int
+    post_owner: UserOut
+
+    # Add this class for Pydantic to read despite the response not being a python dictionary
+    # The response in this case that is to be validated is a SQLAlchemy based class
+    class Config:
+        orm_mode = True

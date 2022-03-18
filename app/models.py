@@ -1,7 +1,7 @@
 from cgitb import text
-from imp import NullImporter
+from sqlalchemy.orm import relationship
 from .database import Base
-from sqlalchemy import TIMESTAMP, Column, Integer, String, Boolean
+from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, Boolean, null
 from sqlalchemy.sql.expression import text
 
 class Posts(Base):
@@ -12,6 +12,9 @@ class Posts(Base):
     content = Column(String, nullable = False)
     published = Column(Boolean, server_default = 'True', nullable = False)
     created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
+    user_id = Column(Integer, ForeignKey("users.id", ondelete = "CASCADE"), nullable = False)
+
+    post_owner = relationship("User")
 
 
 class User(Base):
