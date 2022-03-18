@@ -14,6 +14,7 @@ class Posts(Base):
     created_at = Column(TIMESTAMP(timezone = True), nullable = False, server_default = text('now()'))
     user_id = Column(Integer, ForeignKey("users.id", ondelete = "CASCADE"), nullable = False)
 
+    # Returns the users details based on the relationship between posts and users (foreign key user_id and id)
     post_owner = relationship("User")
 
 

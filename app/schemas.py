@@ -13,6 +13,7 @@ class CreateUser(BaseModel):
     email: EmailStr
     password: str
 
+
 class UserOut(BaseModel):
     id: int
     email: EmailStr
@@ -21,16 +22,20 @@ class UserOut(BaseModel):
     class Config:
         orm_mode = True
 
+
 class LoginUser(BaseModel):
     email: EmailStr
     password: str
+
 
 class Token(BaseModel):
     access_token: str
     token_type: str
 
+
 class TokenData(BaseModel):
     id: Optional[str]
+
 
 class PostBase(BaseModel):
     title: str
@@ -38,8 +43,10 @@ class PostBase(BaseModel):
     # optional as default value is set
     published: bool = True
     
+
 class PostCreate(PostBase):
     pass
+
 
 class PostResponse(PostBase):
     id: int
