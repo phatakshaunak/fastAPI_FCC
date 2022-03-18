@@ -5,6 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, status, HTTPException
 from sqlalchemy.orm import Session
 import os
+from .variables import settings
 
 # SECRET_KEY
 # Algorithm HS256
@@ -14,7 +15,7 @@ import os
 '''https://stackoverflow.com/questions/60738514/openssl-rand-base64-32-what-is-the-equivalent-in-python'''
 
 # https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
-SECRET_KEY = os.environ["jwt_secret"]
+SECRET_KEY = settings.jwt_s
 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30

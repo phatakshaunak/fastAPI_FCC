@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 import os
-import time
+from .variables import settings
 from . import models
 from .database import engine
 from .routers import posts, users, auth
@@ -13,7 +13,7 @@ app.include_router(auth.router)
 
 models.Base.metadata.create_all(bind = engine)
 
-pg_password = os.environ["pg_password"]
+
 
 @app.get("/")
 def root():
