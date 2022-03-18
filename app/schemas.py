@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, conint
 from datetime import datetime
 
 # # Schema validation using Pydantic for data received from client
@@ -58,3 +58,7 @@ class PostResponse(PostBase):
     # The response in this case that is to be validated is a SQLAlchemy based class
     class Config:
         orm_mode = True
+
+class Vote(BaseModel):
+    post_id: int
+    drc: int
