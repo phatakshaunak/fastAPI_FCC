@@ -17,7 +17,7 @@ def get_posts(db: Session = Depends(get_db),
     posts = db.query(models.Posts).filter(models.Posts.title.contains(search)).offset(skip).limit(limit).all()
 
     # To get only the user's posts
-    # posts = db.query(models.Posts).all().filter(models.Posts.user_id == current_user.id).all()
+    # posts = db.query(models.Posts).filter(models.Posts.user_id == current_user.id).all()
 
     return posts
 
