@@ -1,4 +1,4 @@
-import email
+from typing import Optional
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
 
@@ -23,9 +23,30 @@ class PostResponse(PostBase):
     id: int
     created_at: datetime
 
+    # Add this class for Pydantic to read despite the response not being a python dictionary
+    # The response in this case that is to be validated is a SQLAlchemy based class
     class Config:
         orm_mode = True
 
 class CreateUser(BaseModel):
     email: EmailStr
     password: str
+
+class UserOut(BaseModel):
+    id: int
+    email: EmailStr
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+class LoginUser(BaseModel):
+    email: EmailStr
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    id: Optional[str]
