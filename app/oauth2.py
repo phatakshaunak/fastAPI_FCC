@@ -14,7 +14,7 @@ from .config import settings
 '''https://stackoverflow.com/questions/60738514/openssl-rand-base64-32-what-is-the-equivalent-in-python'''
 
 # https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
-SECRET_KEY = settings.jwt_s
+SECRET_KEY = settings.secret_key
 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
