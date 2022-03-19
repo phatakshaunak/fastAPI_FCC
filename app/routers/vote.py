@@ -3,7 +3,7 @@ from .. import models, schemas, oauth2
 from ..database import get_db
 from sqlalchemy.orm import Session
 
-router = APIRouter(prefix = "/vote", tags = ["Votes"])
+router = APIRouter(prefix = "/vote", tags = ["Votes (1 to vote, 0 to remove vote"])
 
 # Submit or remove a vote on a post
 @router.post("/", status_code = status.HTTP_201_CREATED)
