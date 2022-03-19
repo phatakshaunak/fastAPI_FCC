@@ -1,3 +1,10 @@
+import sys, os
+# https://github.com/talkpython/100daysofweb-with-python-course/tree/master/days/061-064-db-migrations/your-turn
+folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app'))
+print("Adding " + folder + " to python path for Alembic.")
+sys.path.insert(0, folder)
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -5,7 +12,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app import models
+from app.models import Base
 from app.config import settings
 
 # this is the Alembic Config object, which provides
@@ -22,7 +29,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = models.Base.metadata
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

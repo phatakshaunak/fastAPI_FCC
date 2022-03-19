@@ -10,7 +10,8 @@ app.include_router(users.router)
 app.include_router(auth.router)
 app.include_router(vote.router)
 
-models.Base.metadata.create_all(bind = engine)
+# Using Alembic to autogenerate tables no need for this command
+# models.Base.metadata.create_all(bind = engine)
 
 
 @app.get("/")
