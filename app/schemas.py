@@ -62,3 +62,7 @@ class PostResponse(PostBase):
 class Vote(BaseModel):
     post_id: int
     drc: int
+ 
+class PostResponseMod(BaseModel):
+    Posts: PostResponse
+    votes: int

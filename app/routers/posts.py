@@ -3,22 +3,28 @@ from typing import List
 from .. import models, schemas, oauth2
 from ..database import get_db
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from typing import Optional
 
 router = APIRouter(prefix = "/posts", tags = ["Posts"])
 
 
 # Get all posts
-@router.get("/", response_model = List[schemas.PostResponse])
+# @router.get("/", response_model = List[schemas.PostResponse])
+@router.get("/", response_model = List[schemas.PostResponseMod])
 def get_posts(db: Session = Depends(get_db),
               current_user: int = Depends(oauth2.get_current_user), limit: int = 10, skip: int = 0,
               search: Optional[str] = ""):
     
-    posts = db.query(models.Posts).filter(models.Posts.title.contains(search)).offset(skip).limit(limit).all()
+    # posts = db.query(models.Posts).filter(models.Posts.title.contains(search)).offset(skip).limit(limit).all()
 
+    posts = db.query(models.Posts, func.count(models.Votes.post_id).label("votes"))\
+            .join(models.Votes, models.Votes.post_id == models.Posts.id, isouter = True)\
+            .group_by(models.Posts.id).all()
+            
     # To get only the user's posts
     # posts = db.query(models.Posts).filter(models.Posts.user_id == current_user.id).all()
-
+    
     return posts
 
 

@@ -1,9 +1,7 @@
-from fastapi import Response, status, HTTPException, Depends, APIRouter
-from typing import List
+from fastapi import status, HTTPException, Depends, APIRouter
 from .. import models, schemas, oauth2
 from ..database import get_db
 from sqlalchemy.orm import Session
-from typing import Optional
 
 router = APIRouter(prefix = "/vote", tags = ["Votes"])
 
