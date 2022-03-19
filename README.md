@@ -1,4 +1,4 @@
 # fastAPI_FCC
-This repo contains all the files used for Free Code Camp's FastAPI course in Python covered by Sanjeev Thiyagarajan
+Coding a dummy social media application with fastAPI with Free Code Camp's fastAPI course.
 
 https://www.youtube.com/channel/UC2sYgV-NV6S5_-pqLGChoNQ
