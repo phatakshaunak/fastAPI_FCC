@@ -1,7 +1,7 @@
 from cgitb import text
 from sqlalchemy.orm import relationship
 from .database import Base
-from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, Boolean, null
+from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, Boolean
 from sqlalchemy.sql.expression import text
 
 class Posts(Base):
@@ -29,6 +29,6 @@ class User(Base):
 
 class Votes(Base):
     __tablename__ = "votes"
-    
+
     user_id = Column(Integer, ForeignKey("users.id", ondelete = "CASCADE"), nullable = False, primary_key = True)
     post_id = Column(Integer, ForeignKey("posts.id", ondelete = "CASCADE"), nullable = False, primary_key = True)

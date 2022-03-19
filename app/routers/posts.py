@@ -18,10 +18,12 @@ def get_posts(db: Session = Depends(get_db),
     
     # posts = db.query(models.Posts).filter(models.Posts.title.contains(search)).offset(skip).limit(limit).all()
 
+    # Query to add vote count on each post and ability to keep limit on posts, offset as well as search keywords
     posts = db.query(models.Posts, func.count(models.Votes.post_id).label("votes"))\
             .join(models.Votes, models.Votes.post_id == models.Posts.id, isouter = True)\
-            .group_by(models.Posts.id).all()
-            
+            .group_by(models.Posts.id).filter(models.Posts.title.contains(search))\
+            .offset(skip).limit(limit).all()
+
     # To get only the user's posts
     # posts = db.query(models.Posts).filter(models.Posts.user_id == current_user.id).all()
     
@@ -43,11 +45,15 @@ def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db),
 
 
 #Get post by path parameter {id}
-@router.get("/{id}", response_model = schemas.PostResponse)
+@router.get("/{id}", response_model = schemas.PostResponseMod)
 def get_post(id: int, db: Session = Depends(get_db),
              current_user: int = Depends(oauth2.get_current_user)):
 
-    post = db.query(models.Posts).filter(models.Posts.id == id).first()
+    # post = db.query(models.Posts).filter(models.Posts.id == id).first()
+    
+    post = posts = db.query(models.Posts, func.count(models.Votes.post_id).label("votes"))\
+                   .join(models.Votes, models.Votes.post_id == models.Posts.id, isouter = True)\
+                   .group_by(models.Posts.id).filter(models.Posts.id == id).first()
 
     if not post:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail = f"Post with id: {id} was not found")
