@@ -1,5 +1,5 @@
 ## API for a social media application using fastAPI
-Coding an API for a dummy social media application with fastAPI with Free Code Camp's fastAPI course.
+Coding an API for a dummy social media application using fastAPI with Free Code Camp's fastAPI course.
 
 The API implements the below functionalities:
 
@@ -14,8 +14,8 @@ The API implements the below functionalities:
 3. Endpoints for Voting on posts
     * Add or remove a vote on a specific post
 
-Database: Used a PostgreSQL database containing tables to store users, posts and votes
+Database: Used a PostgreSQL database with tables to store users, posts and votes
 
-Implemented database creation and revisions using an ORM (SQLAlchemy) and database migration tool (Alembic)
+Implemented the database creation and revisions using an ORM (SQLAlchemy) and database migration tool (Alembic)
 
 Deployed the API to heroku. The following link provides access for trying out all the above endpoints: https://shaunak-fastapi.herokuapp.com/docs/
