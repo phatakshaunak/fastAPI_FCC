@@ -1,7 +1,7 @@
 ## API for a social media application using fastAPI
 Coding an API for a dummy social media application with fastAPI with Free Code Camp's fastAPI course.
 
-The API implements the functionalities:
+The API implements the below functionalities:
 
 1. User posts
     * Create a new post
